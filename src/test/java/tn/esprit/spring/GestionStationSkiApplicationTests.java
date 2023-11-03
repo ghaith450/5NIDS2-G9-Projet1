@@ -9,8 +9,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.mockito.InjectMocks;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.api.Assertions;
-
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Optional;
 
 import tn.esprit.spring.repositories.ISubscriptionRepository;
@@ -28,7 +27,7 @@ class GestionStationSkiApplicationTests {
     @InjectMocks
     SubscriptionServicesImpl subscriptionService;
 
-    Subscription sub = new Subscription(2L, new LocalDate(), new LocalDate(), 55.0, TypeSubscription.ANNUAL);
+Subscription sub = new Subscription(2L, LocalDate.now(), LocalDate.now(), 55.0, TypeSubscription.ANNUAL);
 
 @Test
 public void testRetrieveSub() {
