@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\main",
+    "\\src\\main\\java",
+    "\\src\\main\\java\\tn",
+    "\\src\\main\\java\\tn\\esprit",
+    "\\src\\main\\java\\tn\\esprit\\spring",
+    "\\src\\main\\java\\tn\\esprit\\spring\\entities",
+    "\\src\\main\\java\\tn\\esprit\\spring\\repositories",
+    "\\src\\main\\java\\tn\\esprit\\spring\\services"
+  ],
+  "SelectedNode": "\\src\\test\\java\\tn\\esprit\\spring\\GestionStationSkiApplicationTests.java",
+  "PreviewInSolutionExplorer": false
+}
