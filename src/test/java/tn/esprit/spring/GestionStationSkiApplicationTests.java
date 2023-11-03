@@ -33,7 +33,7 @@ class GestionStationSkiApplicationTests {
 @Test
 public void testRetrieveSub() {
     Mockito.when(subscriptionRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(sub));
-    Subscription sub1 = subscriptionService.retrieveSubscriptionById(1L); // Use 1L instead of 1
+    Subscription sub1 = subscriptionService.retrieveSubscriptionById(1);
     Assertions.assertNotNull(sub1);
 }
 

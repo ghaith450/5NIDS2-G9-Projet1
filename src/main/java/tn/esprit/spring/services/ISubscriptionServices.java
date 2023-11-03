@@ -13,7 +13,7 @@ public interface ISubscriptionServices {
 
 	Subscription updateSubscription(Subscription subscription);
 
-	Subscription retrieveSubscriptionById(Long numSubscription);
+	Subscription retrieveSubscriptionById(int numSubscription);
 
 	Set<Subscription> getSubscriptionByType(TypeSubscription type);
 
