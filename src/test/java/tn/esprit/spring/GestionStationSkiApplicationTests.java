@@ -27,7 +27,7 @@ class GestionStationSkiApplicationTests {
     @InjectMocks
     SubscriptionServicesImpl subscriptionService;
 
-Subscription sub = new Subscription(2L, LocalDate.now(), LocalDate.now(), 55.0, TypeSubscription.ANNUAL);
+Subscription sub = new Subscription(2L, LocalDate.now(), LocalDate.now(), 55.0f, TypeSubscription.ANNUAL);
 
 @Test
 public void testRetrieveSub() {
