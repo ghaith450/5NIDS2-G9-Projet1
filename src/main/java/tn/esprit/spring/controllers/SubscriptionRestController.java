@@ -27,7 +27,7 @@ public class SubscriptionRestController {
     }
     @Operation(description = "Retrieve Subscription by Id")
     @GetMapping("/get/{id-subscription}")
-    public Subscription getById(@PathVariable("id-subscription") Long numSubscription){
+    public Subscription getById(@PathVariable("id-subscription") int numSubscription){
         return subscriptionServices.retrieveSubscriptionById(numSubscription);
     }
     
