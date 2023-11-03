@@ -45,7 +45,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
     @Override
-    public Subscription retrieveSubscriptionById(int numSubscription) {
+    public Subscription retrieveSubscriptionById(Long numSubscription) {
         return subscriptionRepository.findById(numSubscription).orElse(null);
     }
 
