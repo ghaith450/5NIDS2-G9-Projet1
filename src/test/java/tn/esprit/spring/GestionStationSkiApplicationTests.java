@@ -30,10 +30,11 @@ class GestionStationSkiApplicationTests {
 
     Subscription sub = new Subscription(2, new Date(), new Date(), 55.0, TypeSubscription.ANNUAL);
 
-    @Test
-    public void testRetrieveSub() {
-        Mockito.when(subscriptionRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(sub));
-        Subscription sub1 = subscriptionService.retrieveSubscriptionById(1L);
-        Assertions.assertNotNull(sub1);
-    }
+@Test
+public void testRetrieveSub() {
+    Mockito.when(subscriptionRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(sub));
+    Subscription sub1 = subscriptionService.retrieveSubscriptionById(1L); // Use 1L instead of 1
+    Assertions.assertNotNull(sub1);
+}
+
 }
