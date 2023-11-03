@@ -28,12 +28,12 @@ class GestionStationSkiApplicationTests {
     @InjectMocks
     SubscriptionServicesImpl subscriptionService;
 
-    Subscription sub = new Subscription(2, new Date(), new Date(), 55.0, TypeSubscription.ANNUAL);
+    Subscription sub = new Subscription(2L, new Date(), new Date(), 55.0, TypeSubscription.ANNUAL);
 
 @Test
 public void testRetrieveSub() {
     Mockito.when(subscriptionRepository.findById(Mockito.anyLong())).thenReturn(Optional.of(sub));
-    Subscription sub1 = subscriptionService.retrieveSubscriptionById(1);
+    Subscription sub1 = subscriptionService.retrieveSubscriptionById(1L);
     Assertions.assertNotNull(sub1);
 }
 
