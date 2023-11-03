@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-public interface ISubscriptionRepository extends CrudRepository<Subscription, int> {
+public interface ISubscriptionRepository extends CrudRepository<Subscription, Long> {
 
     @Query("select s from Subscription s where s.typeSub = :typeS order by s.startDate")
     Set<Subscription> findByTypeSubOrderByStartDateAsc(@Param("typeS") TypeSubscription typeSub);
