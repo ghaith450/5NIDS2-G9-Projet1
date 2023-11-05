@@ -16,7 +16,7 @@ services:
     depends_on:
       - mysqldb
     image: 5nids2_g9_projet1:latest
-    restart: always
+    restart: on-failure
     ports:
       - 6868:8082
     volumes:
