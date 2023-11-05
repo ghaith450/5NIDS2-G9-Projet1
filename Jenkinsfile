@@ -1,6 +1,5 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout GIT') {
             steps {
@@ -30,7 +29,31 @@ pipeline {
                 sh 'mvn deploy -DskipTests'  // Déployer sur Nexus en sautant les tests
             }
         }
+        stage('build docker image'){
+            steps{
+                script{
+                        sh 'docker build -t ghaith90/5nids2-g9-projet1-1.0 .'
+                }
+            }
 
+        }
+        stage('docker hub'){
+            steps{
+                script{
+                    sh 'docker tag ghaith90/5nids2-g9-projet1-1.0 ghaith90/5nids2-g9-projet1-1.0'
+                    sh 'docker login -u ghaith90 -p Weldelmo5'
+                    sh 'docker push ghaith90/5nids2-g9-projet1-1.0'
+                }
+            }
+        }
+       stage('Deploy Prometheus and Grafana') {
+            steps {
+                // Déployez Prometheus et Grafana en utilisant Docker Compose
+                script {
+                    sh 'docker-compose -f prometheus-grafana/docker-compose.yml up -d'
+                }
+            }
+        }
 
     }
 }
