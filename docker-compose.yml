@@ -7,18 +7,29 @@ services:
       - 3307:3306
     volumes:
       - db:/var/lib/mysql
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+        - dev
 
   stationSki-backend:
     depends_on:
       - mysqldb
     image: 5nids2_g9_projet1:latest
-    restart: on-failure
+    restart: always
     ports:
       - 6868:8082
     volumes:
       - .m2:/root/.m2
+    environment:
+        PMA_HOST: mysqldb
+    networks:
+        - dev
     stdin_open: true
     tty: true
+
+networks:
+    dev:
 
 volumes:
   db:
