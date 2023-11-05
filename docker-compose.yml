@@ -1,0 +1,27 @@
+version: '2'
+
+services:
+  5nids2-g9-projet1-backend:
+    image: ghaith90/5nids2-g9-projet1-1.0
+    ports:
+      - 6868:8089
+    stdin_open: true
+    tty: true
+    volumes:
+    - test:/root/.m2
+    depends_on:
+      - mysqldb
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=stationSki
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+volumes:
+  db:
+  test:
+
+
