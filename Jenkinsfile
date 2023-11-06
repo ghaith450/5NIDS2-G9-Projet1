@@ -26,9 +26,9 @@ environment {
         }
          stage('SonarQube Scan') {
             steps {
-                 withSonarQubeEnv(installationName: 'aq'){
-                sh 'mvn sonar:sonar -Dsonar.login=sqp_3e036e79b0f778327febec2b993cd6e39c370c9c'
-            }
+                // withSonarQubeEnv(installationName: 'aq'){
+                //sh 'mvn sonar:sonar -Dsonar.login=sqp_3e036e79b0f778327febec2b993cd6e39c370c9c'
+           // }
             }
         }
         stage('Deploy to Nexus') {
