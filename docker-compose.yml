@@ -1,23 +1,27 @@
-version: "3.8"
-services:
-  mysqldb:
-    image: mysql:5.7
-    restart: on-failure
-    ports:
-      - 3307:3306
-    volumes:
-      - db:/var/lib/mysql
+version: '3'
 
-  stationSki-backend:
+services:
+  5nids2-g9-projet1-backend:
+    image: mustaphabazdeh/5nids2-g9-projet1-1.0
+    ports:
+      - 6868:8089
+    stdin_open: true
+    tty: true
+    volumes:
+    - test:/root/.m2
     depends_on:
       - mysqldb
-    image: mustaphabazdeh/5nids2_g9_projet1:latest
+  mysqldb:
+    image: mysql:5.7
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=stationSki
     ports:
-      - 6869:8088
+      - 3306:3306
     volumes:
-      - .m2:/root/.m2
-
+      - db:/var/lib/mysql
 volumes:
   db:
-  .m2:
+  test:
+
 
