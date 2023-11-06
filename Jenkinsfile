@@ -1,72 +1,78 @@
 pipeline {
     agent any
+
 environment {
-    		DOCKERHUB_CREDENTIALS=credentials('projet')
-    	}
+		DOCKERHUB_CREDENTIALS=credentials('docker')
+	}
 
     stages {
-        stage('Récupération du code de la branche') {
+        stage('Checkout GIT') {
             steps {
-                git branch: 'MahdiENNOUR-5NIDS-G3',
-                url: 'https://github.com/BahaEddineKsib/5NIDS2-G3-PROJECT2.git'
+                echo 'Pulling...'
+                git branch: 'main', url: 'https://github.com/raedgs/devops.git'
             }
+        }
+        stage('MVN CLEAN') {
+            steps {
+                // Nettoie le projet en utilisant Maven
+                sh 'mvn clean'
+            }
+        }
+        stage('MVN COMPILE') {
+            steps {
+                // Compile le projet en utilisant Maven
+                sh 'mvn compile'
+            }
+        }
+         stage('SonarQube Scan') {
+            steps {
+                 withSonarQubeEnv(installationName: 'sq'){
+                sh 'mvn sonar:sonar -Dsonar.login=squ_55901a5704aecca6f4cc50192598abdb7743fa1f'
+            }
+            }
+        }
+        stage('Deploy to Nexus') {
+            steps {
+               
+                sh 'mvn deploy -DskipTests'  // Déployer sur Nexus en sautant les tests
+            }
+            
         }
 
-        stage('Nettoyage et compilation avec Maven') {
-            steps {
-                // Étape de nettoyage du projet
-                sh "mvn clean"
 
-                // Étape de compilation du projet
-                sh "mvn compile"
-                // Etape de sonar
+        stage('Build Spring Application') {
+            steps {
+                sh "mvn clean package"  // Exemple pour construire avec Maven
+                // Vous pouvez personnaliser cette étape pour votre processus de construction (ex. Gradle).
             }
         }
+        
+        stage('Build Docker ') {
 
-        stage('MVN SONARQUBE'){
-        steps {
-            sh "mvn sonar:sonar -Dsonar.login=sqa_302c9ed696110e75ec002a6bcecfb4f796e1e7de"
-        }
-        }
-        stage("mockito"){
-            steps {
-                sh 'mvn -Dtest=mockito test'
+			steps {
+				sh 'docker build -t raed005/validation-devops:latest .'
+			}
+		}
+	    stage('docker hub'){
+            steps{
+                script{
+                    sh 'docker tag raed005/validation-devops:latest raed005/validation-devops:latest'
+                    sh 'docker login -u raed005 -p 191JMT3825/r'
+                    sh 'docker push raed005/validation-devops:latest'
+                }
             }
         }
-        stage('mvn deploy'){
+	    stage('Deploy Prometheus and Grafana') {
             steps {
-                sh "mvn deploy"
+                // Déployez Prometheus et Grafana en utilisant Docker Compose
+                script {
+                    sh 'docker compose -f prometheus-grafana/docker-compose.yml up -d'
+                }
             }
         }
+        
+        
 
-        stage('Docker Image') {
-                           steps {
-                               sh 'docker build -t mahdiennour-5nids2-g3 .'
-                           }
-               }
-stage('DOCKERHUB') {
-                          steps {
-                              sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
-                              sh 'docker tag mahdiennour-5nids2-g3 mahdienn/mahdienn-5nids2-g3:1.0.0'
-                              sh 'docker push mahdienn/mahdienn-5nids2-g3:1.0.0'
-                          }
-                      }
-               stage('Docker Compose') {
-                                  steps {
-                                      sh 'docker compose up -d'
-                                  }
-                      }
-stage('Junit') {
-            steps {
-                sh 'mvn -Dtest=Junit test'
-            }
-        }
-stage('Grafana/prometheus') {
-            steps {
-                sh 'docker start e7720cf8a384'
-                sh 'docker start d51ba09c7cf6'
-            }
-        }
 
     }
 }
