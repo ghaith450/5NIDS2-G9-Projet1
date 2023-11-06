@@ -27,7 +27,7 @@ environment {
          stage('SonarQube Scan') {
             steps {
                  withSonarQubeEnv(installationName: 'sq'){
-                sh 'mvn sonar:sonar -Dsonar.login=squ_55901a5704aecca6f4cc50192598abdb7743fa1f'
+                sh 'mvn sonar:sonar -Dsonar.login=sqp_3e036e79b0f778327febec2b993cd6e39c370c9c'
             }
             }
         }
