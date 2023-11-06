@@ -11,13 +11,11 @@ services:
   stationSki-backend:
     depends_on:
       - mysqldb
-    image: 5nids2_g9_projet1:latest
+    image: mustaphabazdeh/5nids2_g9_projet1:latest
     ports:
-      - 6868:8082
+      - 6869:8088
     volumes:
       - .m2:/root/.m2
-    stdin_open: true
-    tty: true
 
 volumes:
   db:
