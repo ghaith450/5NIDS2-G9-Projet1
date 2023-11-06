@@ -19,7 +19,8 @@ pipeline {
                 sh 'mvn compile'
             }
         }
-         stage('SonarQube Scan') {
+
+        stage('SonarQube Scan') {
             steps {
                 sh 'mvn sonar:sonar -Dsonar.login=squ_f7bad751dfe7fe4e94bcfcace13ce950318a3d19'
             }
@@ -28,7 +29,9 @@ pipeline {
             steps {
                 sh 'mvn deploy -DskipTests'  // Déployer sur Nexus en sautant les tests
             }
+
         }
+
         stage('build docker image'){
             steps{
                 script{
@@ -46,14 +49,39 @@ pipeline {
                 }
             }
         }
+          stage('docker compose'){
+            steps{
+                script{
+                    sh 'docker volume create db '
+                    sh 'docker volume create test '
+                    sh 'docker compose up -d'
+                }
+            }
+        }
+
+
+
        stage('Deploy Prometheus and Grafana') {
             steps {
                 // Déployez Prometheus et Grafana en utilisant Docker Compose
                 script {
-                    sh 'docker-compose -f prometheus-grafana/docker-compose.yml up -d'
+                    sh 'docker run -d prom/prometheus '
+                    sh 'docker run -d grafana/grafana'
                 }
             }
         }
 
     }
+
+    post{
+          always{
+            mail to: "ghaithmechergui12@gmail.com",
+            subject: "Test Email",
+            body: "Test"
+        }
+    }
+
+
+
+
 }
