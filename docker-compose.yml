@@ -11,6 +11,8 @@ services:
     - test:/root/.m2
     depends_on:
       - mysqldb
+    networks:
+      - monreseau
   mysqldb:
     image: mysql:5.7
     environment:
@@ -20,8 +22,13 @@ services:
       - 3306:3306
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - monreseau
 volumes:
   db:
   test:
+networks:
+  monreseau:
+    driver: bridge
 
 
