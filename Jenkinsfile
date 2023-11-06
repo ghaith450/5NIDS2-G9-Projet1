@@ -67,14 +67,14 @@ environment {
 	    
 	   stage('Junit') {
             steps {
-                sh 'mvn -Dtest=Junit test'
+                sh 'mvn -Dtest=Junit'
             }
         }
         
         
  stage("mockito"){
             steps {
-                sh 'mvn -Dtest=mockito test'
+                sh 'mvn -Dtest=mockito'
             }
         }
 
