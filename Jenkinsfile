@@ -46,16 +46,8 @@ environment {
                 // Vous pouvez personnaliser cette étape pour votre processus de construction (ex. Gradle).
             }
         }
-	    stage('Junit') {
-            steps {
-                sh 'mvn -Dtest=Junit test'
-            }
-        }
-	     stage("mockito"){
-            steps {
-                sh 'mvn -Dtest=mockito test'
-            }
-        }
+	    
+	    
         
         stage('Build Docker ') {
 
@@ -73,10 +65,18 @@ environment {
             }
         }
 	    
-	   
+	   stage('Junit') {
+            steps {
+                sh 'mvn -Dtest=Junit test'
+            }
+        }
         
         
-
+ stage("mockito"){
+            steps {
+                sh 'mvn -Dtest=mockito test'
+            }
+        }
 
     }
 }
